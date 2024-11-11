@@ -1,7 +1,17 @@
 # 4.Входные данные: текст. Результат работы алгоритма: массив анаграмм во входном тексте.
 def is_int(choice):
     """ Проверка на то, что s - целое число"""
-    return True
+    try:
+        if type(choice) is int:
+            return True
+        if choice is None:
+            return False
+        if not choice.isdecimal():
+            return False
+        int(choice)
+        return True
+    except (Exception, ValueError, TypeError):
+        return False
 
 def f1():
     """Функция, которая позволяет пользователь ввести или сгенерировать текст"""
