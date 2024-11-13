@@ -15,17 +15,35 @@ def is_int(choice):
 
 def f1():
     """Функция, которая позволяет пользователь ввести или сгенерировать текст"""
-    return "образец"
+    print("Введите текст (для завершения ввода введите пустую строку):")
+    lines = []
+    while True:
+        line = input()
+        if line == "":
+            break
+        lines.append(line)
+    # Объединяем все строки в один текст
+    global full_text
+    full_text = " ".join(lines)
 
-def f2():
+def f2(anagramms):
     """ Выполнение алгоритма по заданию """
-    return "образец"
+    for i in range(len(full_text)):
+        for j in range(len(full_text)):
+            if i == j:
+                continue
+            if full_text[i] == full_text[j]:
+                anagramms = anagramms + (full_text[i],)
+    return anagramms
 
-def f3():
+def f3(anagramms):
     """ Вывод результата """
-    return "образец"
+    for word in anagramms:
+        print(word)
 
 def menu():
+    global anagramms
+    anagramms = ()
     while True:
         print("Выберите пункт меню:\n"
               "1. Ввод исходного текста, вручную или сгенерированного случайным образом\n"
@@ -38,13 +56,13 @@ def menu():
         if choice == 1:
             f1()
         elif choice == 2:
-            f2()
+            f2(anagramms)
         elif choice == 3:
-            f3()
+            f3(anagramms)
         elif choice == 0:
             break
         else:
             print('error')
 
-if __name__ == "__menu__":
+if __name__ == "__main__":
     menu()
