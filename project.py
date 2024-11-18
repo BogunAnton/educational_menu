@@ -1,4 +1,6 @@
 # 4.Входные данные: текст. Результат работы алгоритма: массив анаграмм во входном тексте.
+import random
+
 def is_int(choice):
     """ Проверка на то, что s - целое число"""
     try:
@@ -13,8 +15,8 @@ def is_int(choice):
     except (Exception, ValueError, TypeError):
         return False
 
-def f1():
-    """Функция, которая позволяет пользователь ввести или сгенерировать текст"""
+def self_input_text():
+    """Функция, которая позволяет пользователю ввести текст"""
     print("Введите текст (для завершения ввода введите пустую строку):")
     lines = []
     while True:
@@ -23,17 +25,36 @@ def f1():
             break
         lines.append(line)
     # Объединяем все строки в один текст
+    return " ".join(lines)
+
+def random_input_text(min_length=10, max_length=1000):
+    # Генерация случайного текста на русском языке
+    letters = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ' * 5 + ' ' * 10
+    length = random.randint(min_length, max_length)  # Генерация случайной длины
+    return ''.join(random.choice(letters) for i in range(length))
+
+def f1():
+    """Функция меню для ввода текста текст"""
     global full_text
-    full_text = " ".join(lines)
+    print("Выберите опцию 1-2:\n"
+          "1. Ввести текст самостоятельно\n"
+          "2. Сгенерировать случайный текст\n")
+    option = input()
+    if is_int(option):
+        choice = int(option)
+    if option == '1':
+        full_text = self_input_text()
+        print("Вы ввели следующий текст:")
+        print(full_text)
+    elif option == '2':
+        full_text = random_input_text()
+        print("Сгенерированный случайный текст:")
+        print(full_text)
+    else:
+        print('error')
 
 def f2(anagramms):
     """ Выполнение алгоритма по заданию """
-    for i in range(len(full_text)):
-        for j in range(len(full_text)):
-            if i == j:
-                continue
-            if full_text[i] == full_text[j]:
-                anagramms = anagramms + (full_text[i],)
     return anagramms
 
 def f3(anagramms):
@@ -42,7 +63,6 @@ def f3(anagramms):
         print(word)
 
 def menu():
-    global anagramms
     anagramms = ()
     while True:
         print("Выберите пункт меню:\n"
