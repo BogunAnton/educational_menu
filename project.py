@@ -55,6 +55,12 @@ def f1():
 
 def f2(anagramms):
     """ Выполнение алгоритма по заданию """
+    for i in range(len(full_text)):
+        for j in range(len(full_text)):
+            if i == j:
+                continue
+            if sorted(full_text[i]) == sorted(full_text[j]):
+                anagrams.append(full_text[i])
     return anagramms
 
 def f3(anagramms):
