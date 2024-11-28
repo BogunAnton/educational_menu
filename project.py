@@ -16,7 +16,7 @@ def is_int(choice):
         return False
 
 def self_input_text():
-    """Функция, которая позволяет пользователю ввести текст"""
+    # Функция, которая позволяет пользователю самостоятельно ввести текст
     print("Введите текст (для завершения ввода введите пустую строку):")
     lines = []
     while True:
@@ -31,7 +31,7 @@ def random_input_text(min_length=10, max_length=1000):
     # Генерация случайного текста на русском языке
     letters = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ' * 5 + ' ' * 10
     length = random.randint(min_length, max_length)  # Генерация случайной длины
-    return ''.join(random.choice(letters) for i in range(length))
+    return ''.join(random.choice(letters) for _ in range(length))
 
 def f1():
     """Функция меню для ввода текста текст"""
@@ -41,7 +41,7 @@ def f1():
           "2. Сгенерировать случайный текст\n")
     option = input()
     if is_int(option):
-        choice = int(option)
+        option = int(option)
     if option == '1':
         full_text = self_input_text()
         print("Вы ввели следующий текст:")
@@ -60,7 +60,8 @@ def f2(anagramms):
             if i == j:
                 continue
             if sorted(full_text[i]) == sorted(full_text[j]):
-                anagrams.append(full_text[i])
+                anagramms = anagramms + (full_text[i],)
+    print("Алгоритм выполнен")
     return anagramms
 
 def f3(anagramms):
@@ -69,6 +70,7 @@ def f3(anagramms):
         print(word)
 
 def menu():
+
     anagramms = ()
     while True:
         print("Выберите пункт меню:\n"
