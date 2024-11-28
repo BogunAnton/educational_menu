@@ -1,4 +1,4 @@
-# 4.Входные данные: текст. Результат работы алгоритма: массив анаграмм во входном тексте.
+# Входные данные: текст. Результат работы алгоритма: массив анаграмм во входном тексте.
 import random
 
 def is_int(choice):
@@ -29,7 +29,7 @@ def self_input_text():
 
 def random_input_text(min_length=10, max_length=1000):
     # Генерация случайного текста на русском языке
-    letters = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ' * 5 + ' ' * 10
+    letters = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ' + ' ' * 7
     length = random.randint(min_length, max_length)  # Генерация случайной длины
     return ''.join(random.choice(letters) for _ in range(length))
 
@@ -42,40 +42,45 @@ def f1():
     option = input()
     if is_int(option):
         option = int(option)
-    if option == '1':
+    if option == 1:
         full_text = self_input_text()
         print("Вы ввели следующий текст:")
         print(full_text)
-    elif option == '2':
+    elif option == 2:
         full_text = random_input_text()
         print("Сгенерированный случайный текст:")
         print(full_text)
     else:
         print('error')
 
-def f2(anagramms):
+def f2():
     """ Выполнение алгоритма по заданию """
-    for i in range(len(full_text)):
-        for j in range(len(full_text)):
-            if i == j:
-                continue
-            if sorted(full_text[i]) == sorted(full_text[j]):
-                anagramms = anagramms + (full_text[i],)
+    words = full_text.split()
+    anagrams = {}
+    for word in words:
+        sorted_word = ''.join(sorted(word))
+        if sorted_word in anagrams:
+            anagrams[sorted_word].append(word)
+        else:
+            anagrams[sorted_word] = [word]
+    result = [group for group in anagrams.values() if len(group) > 1]
     print("Алгоритм выполнен")
-    return anagramms
+    return result
 
-def f3(anagramms):
+def f3(anagrams):
     """ Вывод результата """
-    for word in anagramms:
-        print(word)
+    if len(anagrams) == 0:
+        print("Анаграмм в тексте нет!!!")
+    else:
+        for group in anagrams:
+            print("Анаграммы:", group)
 
 def menu():
-
-    anagramms = ()
+    anagrams = []
     while True:
         print("Выберите пункт меню:\n"
               "1. Ввод исходного текста, вручную или сгенерированного случайным образом\n"
-              "2. Выполнение алгоритма по поиску анограмм в исходном тексте\n"
+              "2. Выполнение алгоритма по поиску анаграмм в исходном тексте\n"
               "3. Вывод результата алгоритма\n"
               "0. Выход из цикла")
         choice = input()
@@ -84,9 +89,9 @@ def menu():
         if choice == 1:
             f1()
         elif choice == 2:
-            f2(anagramms)
+            anagrams = f2()
         elif choice == 3:
-            f3(anagramms)
+            f3(anagrams)
         elif choice == 0:
             break
         else:
